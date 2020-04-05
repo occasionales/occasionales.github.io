@@ -71,3 +71,12 @@ Moreover, in a study [found here](https://arxiv.org/abs/1503.04069), which compa
 
 ## Parameters in LSTMs
 
+
+## Multiply and Accumulation operations in LSTMs
+
+The LSTM inference can be reduced to two matrix-matrix multiplications. The first one can be simplified as:
+
+![Matrix multiplciatons of LSTMs](/img/MACC_lstm.svg){: .center-block :}
+
+<em>W</em> is the weight matrix used by the LSTM cell which is composed of <em>W<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>W<sub>o</sub></em> and <em>W<sub>C</sub></em> that are used in equations for the gates and cell state. Note the dimension of <em>W</em> is (Feature dimension + <em>C<sub>LSTM</sub></em>,  4 * <em>C<sub>LSTM</sub></em>) where <em>C<sub>LSTM</sub></em> stands for the number of cells in the LSTM layer. Then <em>b</em> is the bias matrix, which is composed of <em>b<sub>f</sub></em>, <em>b<sub>i</sub></em>, <em>b<sub>o</sub></em> and <em>b<sub>C</sub></em>. 
+
