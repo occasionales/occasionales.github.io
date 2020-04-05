@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Insights into LSTM architecture
-subtitle: Finding the total number of mutliply and accumulate operations
+subtitle: Finding the total number of multiply and accumulate operations
 image: /img/LSTMcell.png
 gh-repo: occasionales/occasionales.github.io
 gh-badge: [follow]
@@ -9,13 +9,13 @@ tags: [Machine learning, LSTMs, RNNs]
 comments: true
 ---
 
-While working on my master thesis, I had to look at various LSTM networks and quickly try to estimate how well they would be suited for embedded implementation. That is, would these networks be an excellent candidate to put on a microprocessor with a limited amount of computing resources available. I therefore looked mainly at three things
+While working on my master thesis, I had to look at various LSTM networks and quickly try to estimate how well they would be suited for embedded implementation. That is, would these networks be an excellent candidate to put on a microprocessor with a limited amount of computing resources available. I, therefore, looked mainly at three things.
 
-* Number of parameters in network.
+* Number of parameters in the network.
 * Feature map size.
 * Number of multiply and accumulate operations (MACC).
 
-I'll now go more deeply into how to calculate two of these considerations, in particular number of parameters and number of MACCs. The feature map size depends very highly on how the feature map are stored on the RAM, but very rough approach is to take the two largest consecutive feature maps and calculate the size of those together. First let us look a bit into LSTMs.
+I'll now go more deeply into how to calculate two of these considerations, in particular the number of parameters and number of MACCs. The feature map size depends very highly on how the feature maps are stored on the RAM, but a very rough approach is to take the two largest consecutive feature maps and calculate the size of those together. First, let us look a bit into LSTMs.
 
 # Long Short-Term Memory
 Recurrent neural networks are a class of neural networks, where node connections form a directed graph along a temporal sequence. In more simple terms, they are networks with loops that allow information to endure within the network.
@@ -32,7 +32,7 @@ The structure of the LSTM has changed over the years, and here a description of 
 
 | ![LSTM cell architecture](/img/LSTMcell.png){: .center-block :} | 
 |:--:| 
-| *LSTM cell architecture, here <em>X<sub>t</sub></em>: input time step, <em>h<sub>t</sub></em>: output, <em>C<sub>t</sub></em>: cell state, <em>f<sub>t</sub></em>: forget gate, <em>i<sub>t</sub></em>: input gate, <em>o<sub>t</sub></em>: output gate, 	<em>&#264;<sub>t</sub></em> : internal cell state. Operations inside light red circle are pointwise.* |
+| *LSTM cell architecture, here <em>X<sub>t</sub></em>: input time step, <em>h<sub>t</sub></em>: output, <em>C<sub>t</sub></em>: cell state, <em>f<sub>t</sub></em>: forget gate, <em>i<sub>t</sub></em>: input gate, <em>o<sub>t</sub></em>: output gate,  <em>&#264;<sub>t</sub></em> : internal cell state. Operations inside light red circle are pointwise.* |
 
 
 The three gates, forget, input, and output, can be seen on the figure above as <em>f<sub>t</sub></em>, <em>i<sub>t</sub></em>, and <em>o<sub>t</sub></em>, respectively. The gates have a simple intuition behind them:
@@ -59,9 +59,9 @@ These cells are then chained together, as seen in the figure below; this is what
 |:--:| 
 | *LSTM cells chained together, with input sequence and output sequence shown how used within the network architecture.* |
 
-The above architecture is a fairly standard version of an LSTM cell; there are though many variants out there, and researchers constantly tweak and modify the cell architecture to make the LSTM network perform better and more robust for various tasks. An example of this is the LSTM cell architecture introduced in [here](https://ieeexplore.ieee.org/document/861302), where they introduce peephole connections to each cell gate, which allows each gate to look at the internal cell state <em>C<sub>t-1</sub></em>. 
+The above architecture is a relatively standard version of an LSTM cell; there are though many variants out there, and researchers constantly tweak and modify the cell architecture to make the LSTM network perform better and more robust for various tasks. An example of this is the LSTM cell architecture introduced in [here](https://ieeexplore.ieee.org/document/861302), where they introduce peephole connections to each cell gate, which allows each gate to look at the internal cell state <em>C<sub>t-1</sub></em>. 
 
-Another prevalent modification of the LSTM is the so-called gated recurrent unit or GRU. The main difference between the GRU and LSTM is that GRU merges the input and forget gates into a single update gate. Moreover, it merges the internal cell state and hidden state. The resulting GRU cell is, therefore, slightly simpler than the traditional LSTM. A GRU cell architecture can be seen in the figure below.
+Another prevalent modification of the LSTM is the so-called gated recurrent unit or GRU. The main difference between the GRU and LSTM is that GRU merges the input and forget gates into a single update gate. Moreover, it merges the internal cell state and hidden state. The resulting GRU cell is, therefore, slightly more straightforward than the traditional LSTM. A GRU cell architecture can be seen in the figure below.
 
 | ![GRU cell architecture](/img/GRUcell.png){: .center-block :} | 
 |:--:| 
@@ -71,6 +71,11 @@ Moreover, in a study [found here](https://arxiv.org/abs/1503.04069), which compa
 
 ## Parameters in LSTMs
 
+The parameters in a LSTM network are the weight and bias matrices: <em>W<sub>f</sub></em>, <em>b<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>b<sub>i</sub></em>, <em>W<sub>o</sub></em>, <em>b<sub>o</sub></em>, and <em>W<sub>C</sub></em>, <em>b<sub>C</sub></em>. Now the size of each weight matrix is: <em>C<sub>LSTM</sub></em>(<em>F<sub>d</sub></em> + <em>C<sub>LSTM</sub></em>) and the size of each bias matrix is of course: <em>C<sub>LSTM</sub></em>. Putting this all together we get the total number of parameters in an LSTM network as:
+
+![Number of parameters in LSTMs](/img/Parameters_LSTM.svg){: .center-block :}
+
+Note this is only for one layer.
 
 ## Multiply and Accumulation operations in LSTMs
 
