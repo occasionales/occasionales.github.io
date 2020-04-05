@@ -14,3 +14,5 @@ While working on my master thesis, I had to look at various LSTM networks and qu
 * Number of parameters in network.
 * Feature map size.
 * Number of multiply and accumulate operations (MACC).
+
+f<sub>subscript</sub>
