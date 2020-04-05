@@ -15,7 +15,7 @@ While working on my master thesis, I had to look at various LSTM networks and qu
 * Feature map size.
 * Number of multiply and accumulate operations (MACC).
 
-I'll now go more deeply into how to calculate two of these considerations, in particular the number of parameters and number of MACCs. The feature map size depends very highly on how the feature maps are stored on the RAM, but a very rough approach is to take the two largest consecutive feature maps and calculate the size of those together. First, let us look a bit into LSTMs.
+I'll now go more deeply into how to calculate two of these considerations, in particular the number of parameters and number of MACCs. The feature map size depends very highly on how the feature maps are stored on the RAM. Still, a very rough approach is to take the two largest consecutive feature maps and calculate the size of those together. First, let us look a bit into LSTMs.
 
 # Long Short-Term Memory
 Recurrent neural networks are a class of neural networks, where node connections form a directed graph along a temporal sequence. In more simple terms, they are networks with loops that allow information to endure within the network.
@@ -53,15 +53,15 @@ The final output from the cell, or <em>h<sub>t</sub></em>, is then filtered with
 
 Just as with each neural network, weights and biases are connected to each gate. These weight matrices are used in combination with gradient-based optimization to make the LSTM cell learn. Weight matrices and biases can be seen in equations above as <em>W<sub>f</sub></em>, <em>b<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>b<sub>i</sub></em>, <em>W<sub>o</sub></em>, <em>b<sub>o</sub></em>, and <em>W<sub>C</sub></em>, <em>b<sub>C</sub></em> respectively. 
 
-These cells are then chained together, as seen in the figure below; this is what allows the RNN-LSTM network to retain information from past time steps and make time-series predictions. By using the LSTM cell architecture, the network has a way of removing the vanishing gradient problem, a problem that hindered older RNN architectures from achieving great time-series predictions.
+These cells are then chained together, as seen in the figure below; this is what allows the RNN-LSTM network to retain information from past time steps and make time-series predictions. By using the LSTM cell architecture, the network has a way of removing the vanishing gradient problem. This problem hindered older RNN architectures from achieving great time-series predictions.
 
 | ![LSTM cells chained together](/img/lstm_cells.png){: .center-block :} | 
 |:--:| 
 | *LSTM cells chained together, with input sequence and output sequence shown how used within the network architecture.* |
 
-The above architecture is a relatively standard version of an LSTM cell; there are though many variants out there, and researchers constantly tweak and modify the cell architecture to make the LSTM network perform better and more robust for various tasks. An example of this is the LSTM cell architecture introduced in [here](https://ieeexplore.ieee.org/document/861302), where they introduce peephole connections to each cell gate, which allows each gate to look at the internal cell state <em>C<sub>t-1</sub></em>. 
+The above architecture is a relatively standard version of an LSTM cell; there are though many variants out there, and researchers constantly tweak and modify the cell architecture to make the LSTM network perform better and more robust for various tasks. An example of this is the LSTM cell architecture introduced in [here](https://ieeexplore.ieee.org/document/861302), where they add peephole connections to each cell gate, which allows each gate to look at the internal cell state <em>C<sub>t-1</sub></em>. 
 
-Another prevalent modification of the LSTM is the so-called gated recurrent unit or GRU. The main difference between the GRU and LSTM is that GRU merges the input and forget gates into a single update gate. Moreover, it merges the internal cell state and hidden state. The resulting GRU cell is, therefore, slightly more straightforward than the traditional LSTM. A GRU cell architecture can be seen in the figure below.
+Another prevalent modification of the LSTM is the so-called gated recurrent unit or GRU. The main difference between the GRU and LSTM is that GRU merges the input and forget gates into a single update gate. Moreover, it combines the internal cell state and hidden state. The resulting GRU cell is, therefore, slightly more straightforward than the traditional LSTM. A GRU cell architecture can be seen in the figure below.
 
 | ![GRU cell architecture](/img/GRUcell.png){: .center-block :} | 
 |:--:| 
