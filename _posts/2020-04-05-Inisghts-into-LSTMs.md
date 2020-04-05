@@ -2,7 +2,7 @@
 layout: post
 title: Insights into LSTM architecture
 subtitle: Finding the total number of mutliply and accumulate operations
-image: /img/LSTMcell-1.png
+image: /img/LSTMcell.png
 gh-repo: occasionales/occasionales.github.io
 gh-badge: [follow]
 tags: [test]
@@ -31,8 +31,10 @@ A problem early versions of RNNs suffer from is the vanishing gradient problem, 
 | *LSTM cell architecture, here <em>X<sub>t</sub></em>: input time step, <em>h<sub>t</sub></em>: output, <em>C<sub>t</sub></em>: cell state, <em>f<sub>t</sub></em>: forget gate, <em>i<sub>t</sub></em>: input gate, <em>o<sub>t</sub></em>: output gate, 	<em>&#264;<sub>t</sub></em> : internal cell state. Operations inside light red circle are pointwise.* |
 
 
-The three gates, forget, input, and output, can be seen on the figure above as $f_{t}$, $i_{t}$, and $o_{t}$, respectively. The gates have a simple intuition behind them:
+The three gates, forget, input, and output, can be seen on the figure above as <em>f<sub>t</sub></em>, <em>i<sub>t</sub></em>, and <em>o<sub>t</sub></em>, respectively. The gates have a simple intuition behind them:
 * The forget gate tells the cell which information to "forget" or throw away from the internal cell state.
 * The input gate tells the cell which new information to store in the internal cell state.
 * The output gate is then what the cell outputs, this is a filtered version of the internal cell state.
-    
+
+![LSTM equations](/img/LSTMequations.svg){: .center-block :}
+
