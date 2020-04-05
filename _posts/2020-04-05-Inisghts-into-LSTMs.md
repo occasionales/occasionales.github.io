@@ -78,5 +78,15 @@ The LSTM inference can be reduced to two matrix-matrix multiplications. The firs
 
 ![Matrix multiplciatons of LSTMs](/img/MACC_lstm.svg){: .center-block :}
 
-<em>W</em> is the weight matrix used by the LSTM cell which is composed of <em>W<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>W<sub>o</sub></em> and <em>W<sub>C</sub></em> that are used in equations for the gates and cell state. Note the dimension of <em>W</em> is (Feature dimension + <em>C<sub>LSTM</sub></em>,  4 * <em>C<sub>LSTM</sub></em>) where <em>C<sub>LSTM</sub></em> stands for the number of cells in the LSTM layer. Then <em>b</em> is the bias matrix, which is composed of <em>b<sub>f</sub></em>, <em>b<sub>i</sub></em>, <em>b<sub>o</sub></em> and <em>b<sub>C</sub></em>. 
+<em>W</em> is the weight matrix used by the LSTM cell which is composed of <em>W<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>W<sub>o</sub></em> and <em>W<sub>C</sub></em> that are used in equations for the gates and cell state. 
 
+Note the dimension of <em>W</em> is (Feature dimension + <em>C<sub>LSTM</sub></em>,  4 * <em>C<sub>LSTM</sub></em>) where <em>C<sub>LSTM</sub></em> stands for the number of cells in the LSTM layer. Then <em>b</em> is the bias matrix, which is composed of <em>b<sub>f</sub></em>, <em>b<sub>i</sub></em>, <em>b<sub>o</sub></em> and <em>b<sub>C</sub></em>. 
+
+The final matrix multiplication is then the one needed to compute <em>C<sub>t</sub></em> and <em>h<sub>t</em></sub>. Also note that these next multiplications are pointwise. They can be reduced to <em>C<sub>LSTM</sub></em> * <em>T</em> MACCs, where <em>T</em> is the time series length.
+
+
+Putting this all together, the total number of MACCs in an LSTM layer is:
+
+![MACCs of LSTMs](/img/MACC_lstm_final.svg){: .center-block :}
+
+where <em>F<sub>d</sub></em> stands for the dimension of the features. 
