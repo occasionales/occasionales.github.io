@@ -36,5 +36,9 @@ The three gates, forget, input, and output, can be seen on the figure above as <
 * The input gate tells the cell which new information to store in the internal cell state.
 * The output gate is then what the cell outputs, this is a filtered version of the internal cell state.
 
-![LSTM equations](/img/LSTMequations.svg){: .center-block :}
+![LSTM equations](/img/LSTM_equations.svg){: .center-block :}
+
+Then the internal cell state is computed as: 
+![Internal state equation](/img/internal_state.svg){: .center-block :}
+The final output from the cell, or $h_t$, is then filtered with the internal cell state as:
 
