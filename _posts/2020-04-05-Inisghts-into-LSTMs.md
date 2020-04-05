@@ -5,7 +5,7 @@ subtitle: Finding the total number of mutliply and accumulate operations
 image: /img/LSTMcell.png
 gh-repo: occasionales/occasionales.github.io
 gh-badge: [follow]
-tags: [test]
+tags: [Machine learning, LSTMs, RNNs]
 comments: true
 ---
 
@@ -17,7 +17,7 @@ While working on my master thesis, I had to look at various LSTM networks and qu
 
 I'll now go more deeply into how to calculate two of these considerations, in particular number of parameters and number of MACCs. The feature map size depends very highly on how the feature map are stored on the RAM, but very rough approach is to take the two largest consecutive feature maps and calculate the size of those together. First let us look a bit into LSTMs.
 
-## Long Short-Term Memory
+# Long Short-Term Memory
 Recurrent neural networks are a class of neural networks, where node connections form a directed graph along a temporal sequence. In more simple terms, they are networks with loops that allow information to endure within the network.
 
 | ![Typical RNN network structure with RNN cells](/img/RNN.png){: .center-block :} | 
@@ -59,3 +59,6 @@ The above architecture is a fairly standard version of an LSTM cell; there are t
 | *GRU cell architecture here <em>X<sub>t</sub></em>: input time step, <em>h<sub>t</sub></em>: output, <em>r<sub>t</sub></em>: reset gate, <em>z<sub>t</sub></em>: update gate, <em>&#293;<sub>t</sub></em>: internal cell state. Operations inside light red circle are pointwise.* |
 
 Moreover, in a study [found here](https://arxiv.org/abs/1503.04069), which compared eight different LSTM modifications to the traditional LSTM architecture, found that no modification significantly increased performance however it found that changes that simplified the LSTM cell architecture, such as the GRU, reduced the number of parameters and computational cost of the LSTM without significantly decreasing performance.
+
+## Parameters in LSTMs
+
