@@ -30,4 +30,12 @@ A problem early versions of RNNs suffer from is the vanishing gradient problem, 
 |:--:| 
 | *LSTM cell architecture, here _X_<sub>_t_</sub>: input time step, _h_<sub>_t_</sub>: output, _C_<sub>_t_</sub>: cell state, _f_<sub>_t_</sub>: forget gate, $i_t$: input gate, $o_t$: output gate, $\hat{C}_t$: internal cell state. Operations inside light red circle are pointwise.* |
 
-_X_ <sub> _t_ </sub>
+
+The three gates, forget, input, and output, can be seen on the figure above as $f_{t}$, $i_{t}$, and $o_{t}$, respectively. The gates have a simple intuition behind them:
+* The forget gate tells the cell which information to "forget" or throw away from the internal cell state.
+* The input gate tells the cell which new information to store in the internal cell state.
+* The output gate is then what the cell outputs, this is a filtered version of the internal cell state.
+
+
+
+<em>X<sub>t</sub></em>
