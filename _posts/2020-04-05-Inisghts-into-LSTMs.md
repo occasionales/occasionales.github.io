@@ -24,7 +24,11 @@ Recurrent neural networks are a class of neural networks, where node connections
 |:--:| 
 | *Typical RNN network structure with RNN cells, here <em>X<sub>t</sub></em>: input time sequence,<em>h<sub>t</sub></em>: output time sequence.* |
 
-A problem early versions of RNNs suffer from is the vanishing gradient problem, and this led to gradient-based methods having an extremely long learning time in training RNNs. This was because the error gradient, for which gradient-based methods need, vanishes as it gets propagated back through the network. This leads to layers in RNNs, usually the first layers, to stop learning. Therefore when a sequence is long enough, RNNs struggle to propagate information from earlier time steps to later ones. In simpler terms, RNNs suffer from short term memory. By looking at the figure above, a typical problem early versions of RNNs faced is that cell one would receive a vanishing error gradient because of the decaying error back-flow and, therefore, not be able to propagate the correct information to cell 4. To combat this short term memory, Sepp Hochreiter and Jürgen Schmidhuber introduced a novel type of RNN called long short-term memory (LSTM). The structure of the LSTM has changed over the years, and here a description of the most common architecture will follow. An LSTM unit is composed of a cell, and within the cell, three gates control the flow of information within the LSTM cell and control the cell state. The three gates are: an input gate, an output gate, and a forget gate. LSTM then chains together these cells, where each cell within the LSTM serves as a memory module.
+A problem early versions of RNNs suffer from is the vanishing gradient problem, and this led to gradient-based methods having an extremely long learning time in training RNNs. This was because the error gradient, for which gradient-based methods need, vanishes as it gets propagated back through the network. This leads to layers in RNNs, usually the first layers, to stop learning. Therefore when a sequence is long enough, RNNs struggle to propagate information from earlier time steps to later ones. In simpler terms, RNNs suffer from short term memory. 
+
+By looking at the figure above, a typical problem early versions of RNNs faced is that cell one would receive a vanishing error gradient because of the decaying error back-flow and, therefore, not be able to propagate the correct information to cell 4. To combat this short term memory, Sepp Hochreiter and Jürgen Schmidhuber introduced a novel type of RNN called long short-term memory (LSTM). 
+
+The structure of the LSTM has changed over the years, and here a description of the most common architecture will follow. An LSTM unit is composed of a cell, and within the cell, three gates control the flow of information within the LSTM cell and control the cell state. The three gates are: an input gate, an output gate, and a forget gate. LSTM then chains together these cells, where each cell within the LSTM serves as a memory module.
 
 | ![LSTM cell architecture](/img/LSTMcell.png){: .center-block :} | 
 |:--:| 
@@ -32,6 +36,7 @@ A problem early versions of RNNs suffer from is the vanishing gradient problem, 
 
 
 The three gates, forget, input, and output, can be seen on the figure above as <em>f<sub>t</sub></em>, <em>i<sub>t</sub></em>, and <em>o<sub>t</sub></em>, respectively. The gates have a simple intuition behind them:
+
 * The forget gate tells the cell which information to "forget" or throw away from the internal cell state.
 * The input gate tells the cell which new information to store in the internal cell state.
 * The output gate is then what the cell outputs, this is a filtered version of the internal cell state.
@@ -46,13 +51,17 @@ The final output from the cell, or <em>h<sub>t</sub></em>, is then filtered with
 
 ![Output equation](/img/output_equation.svg){: .center-block :}
 
-Just as with each neural network, weights and biases are connected to each gate. These weight matrices are used in combination with gradient-based optimization to make the LSTM cell learn. Weight matrices and biases can be seen in equations above as <em>W<sub>f</sub></em>, <em>b<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>b<sub>i</sub></em>, <em>W<sub>o</sub></em>, <em>b<sub>o</sub></em>, and <em>W<sub>C</sub></em>, <em>b<sub>C</sub></em> respectively. These cells are then chained together, as seen in the figure below; this is what allows the RNN-LSTM network to retain information from past time steps and make time-series predictions. By using the LSTM cell architecture, the network has a way of removing the vanishing gradient problem, a problem that hindered older RNN architectures from achieving great time-series predictions.
+Just as with each neural network, weights and biases are connected to each gate. These weight matrices are used in combination with gradient-based optimization to make the LSTM cell learn. Weight matrices and biases can be seen in equations above as <em>W<sub>f</sub></em>, <em>b<sub>f</sub></em>, <em>W<sub>i</sub></em>, <em>b<sub>i</sub></em>, <em>W<sub>o</sub></em>, <em>b<sub>o</sub></em>, and <em>W<sub>C</sub></em>, <em>b<sub>C</sub></em> respectively. 
+
+These cells are then chained together, as seen in the figure below; this is what allows the RNN-LSTM network to retain information from past time steps and make time-series predictions. By using the LSTM cell architecture, the network has a way of removing the vanishing gradient problem, a problem that hindered older RNN architectures from achieving great time-series predictions.
 
 | ![LSTM cells chained together](/img/lstm_cells.png){: .center-block :} | 
 |:--:| 
 | *LSTM cells chained together, with input sequence and output sequence shown how used within the network architecture.* |
 
-The above architecture is a fairly standard version of an LSTM cell; there are though many variants out there, and researchers constantly tweak and modify the cell architecture to make the LSTM network perform better and more robust for various tasks. An example of this is the LSTM cell architecture introduced in [here](https://ieeexplore.ieee.org/document/861302), where they introduce peephole connections to each cell gate, which allows each gate to look at the internal cell state <em>C<sub>t-1</sub></em>. Another prevalent modification of the LSTM is the so-called gated recurrent unit or GRU. The main difference between the GRU and LSTM is that GRU merges the input and forget gates into a single update gate. Moreover, it merges the internal cell state and hidden state. The resulting GRU cell is, therefore, slightly simpler than the traditional LSTM. A GRU cell architecture can be seen in the figure below.
+The above architecture is a fairly standard version of an LSTM cell; there are though many variants out there, and researchers constantly tweak and modify the cell architecture to make the LSTM network perform better and more robust for various tasks. An example of this is the LSTM cell architecture introduced in [here](https://ieeexplore.ieee.org/document/861302), where they introduce peephole connections to each cell gate, which allows each gate to look at the internal cell state <em>C<sub>t-1</sub></em>. 
+
+Another prevalent modification of the LSTM is the so-called gated recurrent unit or GRU. The main difference between the GRU and LSTM is that GRU merges the input and forget gates into a single update gate. Moreover, it merges the internal cell state and hidden state. The resulting GRU cell is, therefore, slightly simpler than the traditional LSTM. A GRU cell architecture can be seen in the figure below.
 
 | ![GRU cell architecture](/img/GRUcell.png){: .center-block :} | 
 |:--:| 
